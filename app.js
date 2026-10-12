@@ -41,7 +41,8 @@
 
   // Network Host Configuration for Smartphone Scanning
   const DETECTED_WIFI_IP = '172.30.1.33';
-  let hostMode = 'wifi'; // 'wifi', 'localhost', 'custom'
+  const CLOUD_ONLINE_URL = 'https://jungyeonsu0330.github.io/smart-business-card';
+  let hostMode = 'cloud'; // 'wifi', 'localhost', 'custom'
   let customBaseUrl = '';
 
   // Social options presets
@@ -148,6 +149,7 @@
     // QR Host guidance elements
     qrHostGuideBox: document.getElementById('qr-host-guide-box'),
     hostGuideText: document.getElementById('host-guide-text'),
+    pillCloudBtn: document.getElementById('pill-cloud-btn'),
     pillWifiIpBtn: document.getElementById('pill-wifi-ip-btn'),
     pillLocalhostBtn: document.getElementById('pill-localhost-btn'),
     pillCustomUrlBtn: document.getElementById('pill-custom-url-btn'),
@@ -280,9 +282,12 @@
     }
 
     try {
+      if (hostMode === 'cloud') {
+        baseUrl = `${CLOUD_ONLINE_URL}/sample_card.html`;
+        return `${baseUrl}#card=${encoded}`;
+      }
       const current = new URL(window.location.href);
       if (hostMode === 'wifi') {
-        // If currently on localhost/127.0.0.1, replace with the computer's actual Wi-Fi IP
         const port = current.port ? `:${current.port}` : '';
         baseUrl = `${current.protocol}//${DETECTED_WIFI_IP}${port}${current.pathname}`;
       } else {
@@ -1116,8 +1121,22 @@
     });
 
     // QR Host Guidance Pills
+    if (DOM.pillCloudBtn) {
+      DOM.pillCloudBtn.addEventListener('click', () => {
+        hostMode = 'cloud';
+        DOM.pillCloudBtn.classList.add('active');
+        if (DOM.pillWifiIpBtn) DOM.pillWifiIpBtn.classList.remove('active');
+        if (DOM.pillLocalhostBtn) DOM.pillLocalhostBtn.classList.remove('active');
+        if (DOM.pillCustomUrlBtn) DOM.pillCustomUrlBtn.classList.remove('active');
+        if (DOM.customUrlRow) DOM.customUrlRow.classList.add('hidden');
+        updateModalQR();
+        showToast('🌐 24시간 온라인 클라우드 모드: 어디서나 동시 접속 가능합니다!');
+      });
+    }
+
     if (DOM.pillWifiIpBtn) {
       DOM.pillWifiIpBtn.addEventListener('click', () => {
+        if (DOM.pillCloudBtn) DOM.pillCloudBtn.classList.remove('active');
         hostMode = 'wifi';
         DOM.pillWifiIpBtn.classList.add('active');
         DOM.pillLocalhostBtn.classList.remove('active');
