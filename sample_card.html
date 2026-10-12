@@ -1364,6 +1364,87 @@
       URL.revokeObjectURL(link.href);
       showToast('📲 스마트폰 주소록 연락처 파일(.vcf)이 다운로드되었습니다!');
     }
+  
+    // 0. Dynamic Persistence: URL Hash or LocalStorage Sync
+    function syncCardData() {
+      let card = null;
+      try {
+        if (window.location.hash && window.location.hash.includes('card=')) {
+          const raw = window.location.hash.split('card=')[1].split('&')[0];
+          const base64 = raw.replace(/-/g, '+').replace(/_/g, '/');
+          const json = decodeURIComponent(escape(atob(base64)));
+          card = JSON.parse(json);
+          localStorage.setItem('cardlink_saved_card', JSON.stringify(card));
+        }
+      } catch (e) {
+        console.warn('URL hash decode error:', e);
+      }
+
+      if (!card) {
+        try {
+          const saved = localStorage.getItem('cardlink_saved_card');
+          if (saved) card = JSON.parse(saved);
+        } catch (e) {
+          console.warn('LocalStorage load error:', e);
+        }
+      }
+
+      if (card && card.name) {
+        applyCardToDOM(card);
+      }
+    }
+
+    function applyCardToDOM(c) {
+      if (c.name) {
+        const nameEl = document.querySelector('.person-name');
+        if (nameEl) nameEl.textContent = c.name;
+        document.title = `${c.name} ${c.title || ''} - ${c.company || '스마트 디지털 명함'}`;
+      }
+      if (c.engName) {
+        const engEl = document.querySelector('.person-eng-name');
+        if (engEl) engEl.textContent = c.engName;
+      }
+      if (c.title || c.department) {
+        const tdEl = document.querySelector('.person-title-dept');
+        if (tdEl) {
+          tdEl.innerHTML = `${c.title || ''} <span class="dot">·</span> ${c.department || ''}`;
+        }
+      }
+      if (c.bio) {
+        const bioEl = document.querySelector('.bio-quote');
+        if (bioEl) bioEl.textContent = `“${c.bio}”`;
+      }
+      if (c.phone) {
+        const telLink = document.querySelector('a[href^="tel:"]');
+        if (telLink) {
+          telLink.href = `tel:${c.phone.replace(/[^0-9]/g, '')}`;
+          const valEl = telLink.querySelector('.contact-value');
+          if (valEl) valEl.textContent = c.phone;
+        }
+      }
+      if (c.email) {
+        const emailLink = document.querySelector('a[href^="mailto:"]');
+        if (emailLink) {
+          emailLink.href = `mailto:${c.email}`;
+          const valEl = emailLink.querySelector('.contact-value');
+          if (valEl) valEl.textContent = c.email;
+        }
+      }
+      if (c.address) {
+        window._cardCurrentAddress = c.address;
+        const addrItems = document.querySelectorAll('.contact-item');
+        addrItems.forEach(item => {
+          const lbl = item.querySelector('.contact-label');
+          if (lbl && lbl.textContent.includes('주소')) {
+            const val = item.querySelector('.contact-value');
+            if (val) val.textContent = c.address;
+          }
+        });
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', syncCardData);
+
   </script>
 </body>
 </html>
