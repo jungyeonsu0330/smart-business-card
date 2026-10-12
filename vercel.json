@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "routes": [
+    { "src": "/card", "dest": "/sample_card.html" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}

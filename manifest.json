@@ -1,0 +1,24 @@
+{
+  "name": "최은지 과장 - 타이어뱅크 스마트 디지털 명함",
+  "short_name": "최은지 명함",
+  "description": "타이어뱅크 주식회사 뱅크그룹 재경부 최은지 과장의 스마트 디지털 명함입니다.",
+  "start_url": "./sample_card.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

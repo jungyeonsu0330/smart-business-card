@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="ko" class="theme-light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>최은지 과장 - 타이어뱅크 주식회사 | 스마트 디지털 명함</title>
+  <meta name="description" content="타이어뱅크 주식회사 뱅크그룹 재경부 최은지 과장의 스마트 디지털 명함입니다. 연락처 저장, 전화, 이메일, 길찾기를 간편하게 이용하세요.">
+  <meta property="og:title" content="최은지 과장 - 타이어뱅크 주식회사 스마트 명함">
+  <meta property="og:description" content="대한민국 1등 타이어 유통 전문기업 타이어뱅크 / 뱅크그룹 재경부">
+  <meta property="og:type" content="profile">
+  
+  <!-- PWA & Mobile Web App Meta -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="최은지 명함">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       Design System Tokens: Bright Light Theme (Default)
+       ========================================================================== */
+    :root {
+      /* Bright Mode Variables */
+      --bg-page: #f1f5f9;
+      --bg-gradient: radial-gradient(circle at 50% 0%, #ffffff 0%, #f8fafc 55%, #e2e8f0 100%);
+      --card-bg: #ffffff;
+      --card-border: rgba(226, 232, 240, 0.95);
+      --card-shadow: 0 16px 36px rgba(15, 23, 42, 0.08), 0 4px 12px rgba(15, 23, 42, 0.03);
+      --card-hover-shadow: 0 24px 48px rgba(37, 99, 235, 0.12), 0 8px 20px rgba(15, 23, 42, 0.05);
+
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+
+      --accent: #1e3a8a;
+      --gold: #d97706;
+      --tirebank-red: #dc2626;
+
+      --text-main: #0f172a;
+      --text-headings: #0f172a;
+      --text-sub: #475569;
+      --text-muted: #64748b;
+
+      --item-bg: #f8fafc;
+      --item-border: #e2e8f0;
+      --item-hover-bg: #eff6ff;
+      --item-hover-border: #93c5fd;
+
+      --quote-bg: #f8fafc;
+      --quote-border: #2563eb;
+      --quote-text: #334155;
+
+      --glass-panel: #ffffff;
+      --glass-border: #e2e8f0;
+      --box-shadow-panel: 0 10px 28px rgba(15, 23, 42, 0.06);
+
+      --ambient-1: rgba(37, 99, 235, 0.06);
+      --ambient-2: rgba(56, 189, 248, 0.08);
+
+      --btn-sms-bg: #ffffff;
+      --btn-sms-border: #cbd5e1;
+      --btn-sms-text: #0f172a;
+
+      --hub-bg: #ffffff;
+      --hub-border: #e2e8f0;
+    }
+
+    /* Dark Mode (Toggleable via button) */
+    html.theme-dark {
+      --bg-page: #090d16;
+      --bg-gradient: radial-gradient(circle at 50% 0%, #1e293b 0%, #090d16 80%);
+      --card-bg: rgba(15, 23, 42, 0.95);
+      --card-border: rgba(56, 189, 248, 0.25);
+      --card-shadow: 0 0 35px rgba(56, 189, 248, 0.15), 0 20px 40px rgba(0, 0, 0, 0.6);
+      --card-hover-shadow: 0 0 45px rgba(56, 189, 248, 0.25), 0 25px 50px rgba(0, 0, 0, 0.7);
+
+      --primary: #38bdf8;
+      --primary-hover: #0ea5e9;
+      --primary-light: rgba(56, 189, 248, 0.1);
+      --primary-border: rgba(56, 189, 248, 0.3);
+
+      --accent: #2563eb;
+      --gold: #fbbf24;
+      --tirebank-red: #ef4444;
+
+      --text-main: #f8fafc;
+      --text-headings: #ffffff;
+      --text-sub: #94a3b8;
+      --text-muted: #64748b;
+
+      --item-bg: rgba(255, 255, 255, 0.03);
+      --item-border: rgba(255, 255, 255, 0.05);
+      --item-hover-bg: rgba(56, 189, 248, 0.1);
+      --item-hover-border: rgba(56, 189, 248, 0.3);
+
+      --quote-bg: rgba(255, 255, 255, 0.04);
+      --quote-border: var(--primary);
+      --quote-text: var(--text-sub);
+
+      --glass-panel: rgba(30, 41, 59, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --box-shadow-panel: 0 10px 25px rgba(0, 0, 0, 0.4);
+
+      --ambient-1: rgba(37, 99, 235, 0.18);
+      --ambient-2: rgba(56, 189, 248, 0.12);
+
+      --btn-sms-bg: rgba(30, 41, 59, 0.8);
+      --btn-sms-border: rgba(255, 255, 255, 0.1);
+      --btn-sms-text: #f8fafc;
+
+      --hub-bg: rgba(30, 41, 59, 0.85);
+      --hub-border: rgba(56, 189, 248, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background: var(--bg-gradient);
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 16px 48px;
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* Ambient background glows */
+    .ambient-glow {
+      position: fixed;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--ambient-1) 0%, transparent 70%);
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+      z-index: 0;
+      transition: background 0.3s ease;
+    }
+
+    .ambient-glow-2 {
+      position: fixed;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--ambient-2) 0%, transparent 70%);
+      bottom: 40px;
+      right: -60px;
+      pointer-events: none;
+      z-index: 0;
+      transition: background 0.3s ease;
+    }
+
+    .card-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    /* Top Bar with Badge & Theme Switcher */
+    .top-bar-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      gap: 10px;
+    }
+
+    .top-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary-light);
+      border: 1px solid var(--primary-border);
+      color: var(--primary);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      backdrop-filter: blur(8px);
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      box-shadow: 0 0 6px var(--primary);
+      animation: pulseDot 2s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .theme-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 6px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      transition: all 0.2s ease;
+    }
+
+    .theme-toggle-btn:hover {
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    /* 3D Business Card Visual */
+    .business-card-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 26px 22px;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+      backdrop-filter: blur(20px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+
+    .business-card-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--card-hover-shadow);
+    }
+
+    /* Card Top Row */
+    .card-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 22px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .emblem-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      flex-shrink: 0;
+    }
+
+    .brand-meta h2 {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-headings);
+      letter-spacing: -0.02em;
+    }
+
+    .brand-meta span {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 2px;
+    }
+
+    .tirebank-pill {
+      background: linear-gradient(90deg, #dc2626 0%, #b91c1c 100%);
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(220, 38, 38, 0.35);
+      letter-spacing: 0.04em;
+    }
+
+    /* Person Info */
+    .person-section {
+      margin-bottom: 22px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 18px;
+    }
+
+    .person-name-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .person-name {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--text-headings);
+      letter-spacing: 0.08em;
+    }
+
+    .person-eng-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-muted);
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .person-title-dept {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .person-title-dept span.dot {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    /* Bio quote */
+    .bio-quote {
+      font-size: 13px;
+      color: var(--quote-text);
+      background: var(--quote-bg);
+      padding: 10px 14px;
+      border-radius: 12px;
+      border-left: 3px solid var(--quote-border);
+      margin-top: 12px;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    /* Contact Detail List */
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+      padding: 11px 14px;
+      border-radius: 12px;
+      background: var(--item-bg);
+      border: 1px solid var(--item-border);
+      transition: all 0.2s ease;
+    }
+
+    .contact-item:hover, .contact-item:active {
+      background: var(--item-hover-bg);
+      border-color: var(--item-hover-border);
+      transform: translateX(3px);
+    }
+
+    .contact-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-info {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .contact-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .contact-value {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-headings);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Primary Action Buttons */
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .btn-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-call {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-call:hover {
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .btn-save-contact {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+      grid-column: span 2;
+      font-size: 15px;
+      padding: 16px;
+    }
+
+    .btn-save-contact:hover {
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .btn-sms {
+      background: var(--btn-sms-bg);
+      color: var(--btn-sms-text);
+      border: 1px solid var(--btn-sms-border);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    }
+
+    .btn-sms:hover {
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    /* ==========================================================================
+       Mobile Access Hub (스마트폰에서 언제든 꺼내 쓰기 3대 옵션)
+       ========================================================================== */
+    .mobile-access-hub {
+      background: var(--hub-bg);
+      border: 1px solid var(--hub-border);
+      border-radius: 22px;
+      padding: 22px 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--box-shadow-panel);
+      transition: all 0.3s ease;
+    }
+
+    .hub-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .hub-badge {
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .hub-header h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-headings);
+      letter-spacing: -0.02em;
+    }
+
+    .hub-sub {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.45;
+      margin-bottom: 16px;
+    }
+
+    .hub-buttons-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-hub {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 14px;
+      background: var(--item-bg);
+      border: 1px solid var(--item-border);
+      cursor: pointer;
+      text-align: left;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s ease;
+    }
+
+    .btn-hub:hover {
+      background: var(--item-hover-bg);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.12);
+    }
+
+    .hub-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      background: var(--primary-light);
+    }
+
+    .hub-text {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .hub-text strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-headings);
+      margin-bottom: 2px;
+    }
+
+    .hub-text span {
+      display: block;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .hub-arrow {
+      font-size: 16px;
+      color: var(--primary);
+      font-weight: 700;
+      padding-right: 4px;
+    }
+
+    /* Highlight App Install button */
+    .btn-hub-app {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(56, 189, 248, 0.05) 100%);
+      border: 1.5px solid var(--primary-border);
+    }
+
+    /* QR Code Showcase Box */
+    .qr-showcase-box {
+      background: var(--glass-panel);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 24px;
+      box-shadow: var(--box-shadow-panel);
+      backdrop-filter: blur(16px);
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .qr-showcase-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-headings);
+      margin-bottom: 4px;
+    }
+
+    .qr-showcase-sub {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .qr-image-wrapper {
+      background: #ffffff;
+      padding: 16px;
+      border-radius: 16px;
+      display: inline-block;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e2e8f0;
+      margin-bottom: 14px;
+    }
+
+    .qr-image-wrapper img {
+      display: block;
+      width: 180px;
+      height: 180px;
+    }
+
+    .qr-scan-guide {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .qr-download-row {
+      margin-top: 16px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn-qr-download {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 22px;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-qr-download:hover, .btn-qr-download:active {
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .qr-press-tip {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.45;
+      background: var(--item-bg);
+      border: 1px solid var(--item-border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    /* Original Photo Card Accordion / Thumbnail */
+    .original-photo-box {
+      background: var(--card-bg);
+      border: 1px dashed var(--btn-sms-border);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      transition: all 0.2s ease;
+    }
+
+    .original-photo-box:hover {
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .original-thumbnail {
+      width: 68px;
+      height: 44px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .original-info h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-headings);
+    }
+
+    .original-info p {
+      font-size: 11px;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+
+    /* Footer */
+    .page-footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: auto;
+      padding-top: 16px;
+    }
+
+    .create-link {
+      display: inline-block;
+      margin-top: 8px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .create-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ==========================================================================
+       PWA Installation Drawer / Modal
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-sheet {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px 24px 0 0;
+      width: 100%;
+      max-width: 480px;
+      padding: 24px 20px 32px;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3);
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.active .modal-sheet {
+      transform: translateY(0);
+    }
+
+    .sheet-handle {
+      width: 40px;
+      height: 4px;
+      background: #cbd5e1;
+      border-radius: 2px;
+      margin: 0 auto 16px;
+    }
+
+    .sheet-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-headings);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sheet-sub {
+      font-size: 13px;
+      color: var(--text-sub);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .device-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      background: var(--item-bg);
+      padding: 4px;
+      border-radius: 12px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      background: transparent;
+      border: none;
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background: #ffffff;
+      color: var(--primary);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .guide-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .step-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-content strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-headings);
+      margin-bottom: 2px;
+    }
+
+    .step-content p {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.4;
+    }
+
+    .btn-sheet-close {
+      width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      background: var(--item-bg);
+      border: 1px solid var(--item-border);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-headings);
+      margin-top: 14px;
+      cursor: pointer;
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #0f172a;
+      border: 1px solid var(--primary);
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(12px);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 2000;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient-glow"></div>
+  <div class="ambient-glow-2"></div>
+
+  <div class="card-container">
+    <!-- Top Bar -->
+    <div class="top-bar-row">
+      <div class="top-badge">
+        <span class="badge-dot"></span>
+        스마트 디지털 명함 (AI 자동 변환)
+      </div>
+      <button type="button" class="theme-toggle-btn" id="theme-toggle-btn" onclick="toggleTheme()">
+        <span id="theme-icon">🌙</span> <span id="theme-label">다크 모드</span>
+      </button>
+    </div>
+
+    <!-- Main Digital Card (Clean White Luxury) -->
+    <div class="business-card-card">
+      <div class="card-top-row">
+        <div class="brand-group">
+          <!-- Bank Group SVG Emblem -->
+          <svg class="emblem-logo" viewBox="0 0 160 160" width="52" height="52">
+            <rect width="160" height="160" rx="30" fill="#1e3a8a"/>
+            <circle cx="80" cy="85" r="32" fill="#fbbf24"/>
+            <g fill="#fbbf24">
+              <polygon points="80,18 83,27 92,27 85,32 87,41 80,36 73,41 75,32 68,27 77,27"/>
+              <polygon points="46,28 49,37 58,37 51,42 53,51 46,46 39,51 41,42 34,37 43,37"/>
+              <polygon points="114,28 117,37 126,37 119,42 121,51 114,46 107,51 109,42 102,37 111,37"/>
+              <polygon points="24,52 27,61 36,61 29,66 31,75 24,70 17,75 19,66 12,61 21,61"/>
+              <polygon points="136,52 139,61 148,61 141,66 143,75 136,70 129,75 131,66 124,61 133,61"/>
+              <polygon points="18,84 21,93 30,93 23,98 25,107 18,102 11,107 13,98 6,93 15,93"/>
+              <polygon points="142,84 145,93 154,93 147,98 149,107 142,102 135,107 137,98 130,93 139,93"/>
+            </g>
+            <text x="80" y="145" font-family="Arial, sans-serif" font-weight="900" font-size="16" fill="#ffffff" text-anchor="middle" letter-spacing="1">BANK GROUP</text>
+          </svg>
+          <div class="brand-meta">
+            <h2>타이어뱅크 주식회사</h2>
+            <span>BANK GROUP · 재경부</span>
+          </div>
+        </div>
+        <div class="tirebank-pill">TIRE BANK</div>
+      </div>
+
+      <div class="person-section">
+        <div class="person-name-wrap">
+          <h1 class="person-name">최 은 지</h1>
+          <span class="person-eng-name">Choi Eun-ji</span>
+        </div>
+        <div class="person-title-dept">
+          과장 <span class="dot">·</span> 뱅크그룹 재경부
+        </div>
+        <div class="bio-quote">
+          “대한민국 1등 타이어 유통 전문기업 타이어뱅크 / 뱅크그룹 재경부”
+        </div>
+      </div>
+
+      <!-- Contact Details -->
+      <div class="contact-list">
+        <a href="tel:01076726707" class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="contact-info">
+            <div class="contact-label">휴대전화 (Mobile)</div>
+            <div class="contact-value">010-7672-6707</div>
+          </div>
+        </a>
+
+        <a href="tel:0448501078" class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="12" y1="4" x2="12" y2="20"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="contact-info">
+            <div class="contact-label">사무실 유선 (Tel) / 팩스 (Fax)</div>
+            <div class="contact-value">044-850-1078 / 팩스 044-850-1079</div>
+          </div>
+        </a>
+
+        <a href="mailto:cej6707@tirebank.com" class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          </div>
+          <div class="contact-info">
+            <div class="contact-label">이메일 (E-mail)</div>
+            <div class="contact-value">cej6707@tirebank.com</div>
+          </div>
+        </a>
+
+        <a href="https://www.tirebank.com" target="_blank" rel="noopener noreferrer" class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="contact-info">
+            <div class="contact-label">회사 공식 웹사이트</div>
+            <div class="contact-value">https://www.tirebank.com</div>
+          </div>
+        </a>
+
+        <div class="contact-item" style="cursor: pointer;" onclick="copyAddress()">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="contact-info">
+            <div class="contact-label">본사 오피스 주소 (클릭시 복사)</div>
+            <div class="contact-value">세종특별자치시 한누리대로 350(뱅크빌딩) 8층</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Action Buttons -->
+    <div class="action-grid">
+      <button type="button" class="btn-action btn-save-contact" onclick="saveVCard()">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+        스마트폰 연락처에 즉시 저장하기 (.vcf)
+      </button>
+
+      <a href="tel:01076726707" class="btn-action btn-call">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        전화 걸기
+      </a>
+
+      <a href="sms:01076726707" class="btn-action btn-sms">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        문자 보내기
+      </a>
+    </div>
+
+    <!-- ======================================================================
+         Mobile Access Hub: 언제든 스마트폰에서 꺼내 쓰는 3대 방법
+         ====================================================================== -->
+    <div class="mobile-access-hub">
+      <div class="hub-header">
+        <span class="hub-badge">BEST</span>
+        <h3>스마트폰에서 언제든 바로 꺼내 쓰기</h3>
+      </div>
+      <p class="hub-sub">미팅이나 네트워킹 현장에서 인터넷이나 PC 없이도 즉시 내 명함을 꺼내 보여줄 수 있는 방법입니다.</p>
+
+      <div class="hub-buttons-grid">
+        <!-- 1. Install as PWA App on Home Screen -->
+        <button type="button" class="btn-hub btn-hub-app" onclick="openInstallModal()">
+          <div class="hub-icon">📲</div>
+          <div class="hub-text">
+            <strong>홈 화면에 전용 앱(PWA)으로 설치</strong>
+            <span>앱스토어 설치 없이 홈 화면에 아이콘 생성 (오프라인 지원)</span>
+          </div>
+          <div class="hub-arrow">→</div>
+        </button>
+
+        <!-- 2. Download Wallpaper / Lockscreen Pass Image -->
+        <button type="button" class="btn-hub btn-hub-wallpaper" onclick="downloadMobilePass()">
+          <div class="hub-icon">🖼️</div>
+          <div class="hub-text">
+            <strong>잠금화면 / 갤러리 QR 패스 저장</strong>
+            <span>화면만 켜서 0.1초 만에 상대방에게 스캔 제공</span>
+          </div>
+          <div class="hub-arrow">↓</div>
+        </button>
+
+        <!-- 3. Download pure QR image -->
+        <a href="choi_eunji_qr.png" download="최은지_명함_QR코드.png" class="btn-hub btn-hub-qr">
+          <div class="hub-icon">📸</div>
+          <div class="hub-text">
+            <strong>QR 코드 사진(PNG) 갤러리에 저장</strong>
+            <span>스마트폰 사진첩에 순수 QR 사진 파일 다운로드</span>
+          </div>
+          <div class="hub-arrow">↓</div>
+        </a>
+
+        <!-- 4. Copy Online Link -->
+        <button type="button" class="btn-hub btn-hub-link" onclick="copyCardLink()">
+          <div class="hub-icon">🔗</div>
+          <div class="hub-text">
+            <strong>모바일 명함 고유 링크 복사</strong>
+            <span>카카오톡 대화방, 인스타, 문자메시지로 바로 전송</span>
+          </div>
+          <div class="hub-arrow">📋</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- QR Code Scan Box -->
+    <div class="qr-showcase-box">
+      <div class="qr-showcase-title">스마트폰 기본 카메라로 스캔하세요</div>
+      <div class="qr-showcase-sub">기본 카메라 앱을 비추면 바로 연락처를 저장하거나 디지털 명함이 열립니다.</div>
+      <div class="qr-image-wrapper">
+        <img src="choi_eunji_qr.png" alt="최은지 과장 연락처 QR 코드" id="main-qr-img">
+      </div>
+      <div>
+        <div class="qr-scan-guide">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          아이폰 · 갤럭시 기본 카메라에서 바로 주소록 연동
+        </div>
+      </div>
+
+      <!-- QR Download Button -->
+      <div class="qr-download-row">
+        <a href="choi_eunji_qr.png" download="최은지_명함_QR코드.png" class="btn-qr-download" id="btn-download-qr-png">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          QR 코드 사진 다운로드 (PNG)
+        </a>
+      </div>
+      <div class="qr-press-tip">
+        💡 스마트폰에서는 위 QR 사진을 <strong>1초간 길게 누르면</strong> [사진 앱에 저장]으로 바로 사진첩에 보관할 수 있습니다.
+      </div>
+    </div>
+
+    <!-- Original Scanned Photo Reference Box -->
+    <div class="original-photo-box" onclick="window.open('sample_card.jpg', '_blank')">
+      <img src="sample_card.jpg" alt="원본 실물 명함 사진" class="original-thumbnail">
+      <div class="original-info">
+        <h4>원본 실물 종이 명함 사진</h4>
+        <p>클릭하여 AI가 분석한 원본 사진을 확인하세요</p>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div>CardLink · AI 스마트 명함 변환 시스템</div>
+      <a href="index.html" class="create-link">나도 명함 사진 찍고 QR 만들기 →</a>
+    </div>
+  </div>
+
+  <!-- PWA Install Guidance Modal -->
+  <div class="modal-overlay" id="install-modal" onclick="closeInstallModal(event)">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="sheet-handle"></div>
+      <div class="sheet-title">
+        <span>📲</span> 홈 화면에 앱으로 추가하기
+      </div>
+      <p class="sheet-sub">스마트폰 홈 화면에 명함 아이콘을 만들어두면, 앱스토어 설치 없이 일반 앱처럼 터치 한 번에 오프라인에서도 즉시 열립니다.</p>
+
+      <div class="device-tabs">
+        <button type="button" class="tab-btn active" id="tab-ios" onclick="switchGuideTab('ios')">🍏 아이폰 (Safari)</button>
+        <button type="button" class="tab-btn" id="tab-android" onclick="switchGuideTab('android')">🤖 갤럭시 (Chrome)</button>
+      </div>
+
+      <!-- iOS Guide -->
+      <div id="guide-ios">
+        <div class="guide-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong>사파리 하단 공유 버튼 탭</strong>
+            <p>화면 하단 가운데의 [네모에서 위로 뻗은 화살표 ⎋] 아이콘을 탭합니다.</p>
+          </div>
+        </div>
+        <div class="guide-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong>[홈 화면에 추가] 선택</strong>
+            <p>공유 메뉴를 조금 아래로 내려 [홈 화면에 추가 ⊞] 메뉴를 누릅니다.</p>
+          </div>
+        </div>
+        <div class="guide-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong>우측 상단 [추가] 완료</strong>
+            <p>바탕화면에 '최은지 명함' 앱 아이콘이 생기며 인터넷 없이도 작동합니다!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Android Guide -->
+      <div id="guide-android" style="display: none;">
+        <div class="guide-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong>크롬 우측 상단 더보기(⋮) 탭</strong>
+            <p>브라우저 우측 상단의 점 3개 메뉴를 누릅니다.</p>
+          </div>
+        </div>
+        <div class="guide-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong>[앱 설치] 또는 [홈 화면에 추가] 선택</strong>
+            <p>메뉴 항목에서 [홈 화면에 추가] 또는 [앱 설치]를 탭합니다.</p>
+          </div>
+        </div>
+        <div class="guide-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong>설치 완료</strong>
+            <p>스마트폰 바탕화면에 전용 아이콘이 생겨 언제든 바로 열 수 있습니다!</p>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn-sheet-close" onclick="closeInstallModal()">확인 완료</button>
+    </div>
+  </div>
+
+  <div id="toast">복사되었습니다</div>
+
+  <script>
+    // 1. Service Worker Registration for 100% Offline Capability
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then((reg) => {
+          console.log('[PWA] Service Worker registered with scope:', reg.scope);
+        }).catch((err) => {
+          console.warn('[PWA] Service Worker registration failed:', err);
+        });
+      });
+    }
+
+    // Android PWA Install Prompt Capture
+    let deferredInstallPrompt = null;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      console.log('[PWA] beforeinstallprompt captured');
+    });
+
+    function openInstallModal() {
+      if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        deferredInstallPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            showToast('🎉 스마트폰 홈 화면에 명함 앱이 설치되었습니다!');
+          }
+          deferredInstallPrompt = null;
+        });
+      } else {
+        document.getElementById('install-modal').classList.add('active');
+      }
+    }
+
+    function closeInstallModal(e) {
+      if (!e || e.target === document.getElementById('install-modal') || e.type === 'click') {
+        document.getElementById('install-modal').classList.remove('active');
+      }
+    }
+
+    function switchGuideTab(type) {
+      const tabIos = document.getElementById('tab-ios');
+      const tabAndroid = document.getElementById('tab-android');
+      const guideIos = document.getElementById('guide-ios');
+      const guideAndroid = document.getElementById('guide-android');
+
+      if (type === 'ios') {
+        tabIos.classList.add('active');
+        tabAndroid.classList.remove('active');
+        guideIos.style.display = 'block';
+        guideAndroid.style.display = 'none';
+      } else {
+        tabAndroid.classList.add('active');
+        tabIos.classList.remove('active');
+        guideIos.style.display = 'none';
+        guideAndroid.style.display = 'block';
+      }
+    }
+
+    // 2. Download Mobile Wallpaper / Lockscreen Pass Image
+    function downloadMobilePass() {
+      const link = document.createElement('a');
+      link.href = 'choi_eunji_mobile_pass.svg';
+      link.download = '최은지_타이어뱅크_스마트폰_패스.svg';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('🖼️ 잠금화면/갤러리용 스마트폰 명함 패스가 다운로드되었습니다!');
+    }
+
+    // 3. Copy Link
+    function copyCardLink() {
+      const url = window.location.href;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(() => {
+          showToast('🔗 모바일 명함 링크가 복사되었습니다! 카톡에 붙여넣기 하세요.');
+        });
+      } else {
+        showToast('링크: ' + url);
+      }
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.classList.toggle('theme-dark');
+      const icon = document.getElementById('theme-icon');
+      const label = document.getElementById('theme-label');
+      
+      if (isDark) {
+        icon.textContent = '☀️';
+        label.textContent = '밝은 모드';
+        showToast('🌙 다크 모드로 전환되었습니다');
+      } else {
+        icon.textContent = '🌙';
+        label.textContent = '다크 모드';
+        showToast('☀️ 밝은 모드로 전환되었습니다');
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    function copyAddress() {
+      const addr = '세종특별자치시 한누리대로 350(뱅크빌딩) 8층';
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(addr).then(() => {
+          showToast('🏢 회사 주소가 복사되었습니다!');
+        });
+      } else {
+        showToast('세종특별자치시 한누리대로 350(뱅크빌딩) 8층');
+      }
+    }
+
+    function saveVCard() {
+      const vcard = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        'PRODID:-//CardLink//Smart Business Card//KO',
+        'FN;CHARSET=UTF-8:최은지',
+        'N;CHARSET=UTF-8:최;은지;;;',
+        'ORG;CHARSET=UTF-8:타이어뱅크 주식회사;뱅크그룹 재경부',
+        'TITLE;CHARSET=UTF-8:과장',
+        'TEL;TYPE=CELL,VOICE:010-7672-6707',
+        'TEL;TYPE=WORK,VOICE:044-850-1078',
+        'TEL;TYPE=FAX:044-850-1079',
+        'EMAIL;TYPE=WORK,INTERNET:cej6707@tirebank.com',
+        'URL:https://www.tirebank.com',
+        'ADR;TYPE=WORK;CHARSET=UTF-8:;;세종특별자치시 한누리대로 350(뱅크빌딩) 8층;;;;',
+        'NOTE;CHARSET=UTF-8:대한민국 1등 타이어 유통 전문기업 타이어뱅크 / 뱅크그룹 재경부',
+        'END:VCARD'
+      ].join('\r\n');
+
+      const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = '최은지_과장_타이어뱅크.vcf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+      showToast('📲 스마트폰 주소록 연락처 파일(.vcf)이 다운로드되었습니다!');
+    }
+  </script>
+</body>
+</html>

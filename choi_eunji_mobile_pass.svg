@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="45%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+
+    <!-- Header Gradient -->
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#172554"/>
+    </linearGradient>
+
+    <!-- Card Shadow Filter -->
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="20" stdDeviation="30" flood-color="#0f172a" flood-opacity="0.08"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="10" flood-color="#0f172a" flood-opacity="0.04"/>
+    </filter>
+
+    <filter id="qrShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="20" flood-color="#000000" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1080" height="1920" fill="url(#bgGrad)"/>
+
+  <!-- Top Ambient Glow -->
+  <circle cx="540" cy="0" r="500" fill="#2563eb" opacity="0.08"/>
+  <circle cx="900" cy="1700" r="400" fill="#38bdf8" opacity="0.06"/>
+
+  <!-- Top Header Pill -->
+  <g transform="translate(340, 120)">
+    <rect width="400" height="60" rx="30" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"/>
+    <circle cx="36" cy="30" r="7" fill="#2563eb"/>
+    <text x="56" y="38" font-family="'Pretendard', sans-serif" font-size="22" font-weight="700" fill="#1d4ed8" letter-spacing="1">스마트폰 명함 패스</text>
+  </g>
+
+  <!-- Main Card Container -->
+  <g transform="translate(80, 220)" filter="url(#cardShadow)">
+    <rect width="920" height="1500" rx="48" fill="#ffffff" stroke="#e2e8f0" stroke-width="3"/>
+
+    <!-- Top Card Header Banner -->
+    <path d="M 0 48 Q 0 0 48 0 L 872 0 Q 920 0 920 48 L 920 180 L 0 180 Z" fill="url(#headerGrad)"/>
+
+    <!-- Bank Group Emblem (Inside Top Banner) -->
+    <g transform="translate(60, 42)">
+      <rect width="96" height="96" rx="20" fill="#2563eb"/>
+      <circle cx="48" cy="52" r="20" fill="#fbbf24"/>
+      <!-- Stars -->
+      <g fill="#fbbf24">
+        <polygon points="48,12 50,17 56,17 51,21 53,26 48,23 43,26 45,21 40,17 46,17"/>
+        <polygon points="28,18 30,23 36,23 31,27 33,32 28,29 23,32 25,27 20,23 26,23"/>
+        <polygon points="68,18 70,23 76,23 71,27 73,32 68,29 63,32 65,27 60,23 66,23"/>
+        <polygon points="14,32 16,37 22,37 17,41 19,46 14,43 9,46 11,41 6,37 12,37"/>
+        <polygon points="82,32 84,37 90,37 85,41 87,46 82,43 77,46 79,41 74,37 80,37"/>
+      </g>
+      <text x="48" y="88" font-family="'Arial', sans-serif" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">BANK GROUP</text>
+    </g>
+
+    <!-- Company Meta -->
+    <text x="180" y="94" font-family="'Pretendard', sans-serif" font-size="34" font-weight="800" fill="#ffffff">타이어뱅크 주식회사</text>
+    <text x="180" y="128" font-family="'Pretendard', sans-serif" font-size="22" font-weight="700" fill="#93c5fd" letter-spacing="2">BANK GROUP · 재경부</text>
+
+    <!-- Tire Bank Red Badge -->
+    <g transform="translate(730, 65)">
+      <rect width="130" height="50" rx="12" fill="#dc2626"/>
+      <text x="65" y="32" font-family="'Pretendard', sans-serif" font-size="18" font-weight="800" fill="#ffffff" text-anchor="middle">TIRE BANK</text>
+    </g>
+
+    <!-- Person Info Section -->
+    <g transform="translate(60, 260)">
+      <text x="0" y="55" font-family="'Pretendard', sans-serif" font-size="64" font-weight="900" fill="#0f172a" letter-spacing="4">최 은 지</text>
+      <text x="260" y="52" font-family="'Outfit', sans-serif" font-size="28" font-weight="600" fill="#64748b">Choi Eun-ji</text>
+      
+      <text x="0" y="110" font-family="'Pretendard', sans-serif" font-size="30" font-weight="700" fill="#2563eb">과장  <tspan fill="#cbd5e1" font-size="24">|</tspan>  뱅크그룹 재경부</text>
+      
+      <!-- Bio quote box -->
+      <rect x="0" y="145" width="800" height="70" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+      <rect x="0" y="145" width="8" height="70" rx="4" fill="#2563eb"/>
+      <text x="30" y="190" font-family="'Pretendard', sans-serif" font-size="22" font-weight="500" fill="#334155">“대한민국 1등 타이어 유통 전문기업 타이어뱅크 / 뱅크그룹 재경부”</text>
+    </g>
+
+    <!-- Center QR Code Box -->
+    <g transform="translate(160, 560)" filter="url(#qrShadow)">
+      <rect width="600" height="600" rx="36" fill="#ffffff" stroke="#e2e8f0" stroke-width="3"/>
+      <!-- QR Image -->
+      <image href="data:image/png;base64,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k0fqLdOlN3mk3jRd2nikNh6pzXTpynRp45HaTJeueKTeMl16wiP1NdOlCx6pzXTpCY/UZrq08UhtPFJfM136munSlenSxiO1mS5dmC494ZHaTJc2Hqk3TZfeNF36EhMAAABOmQAAAHDKBAAAgFMmAAAAnDIBAADglAkAAACnTAAAADhlAgAAwCkTAAAATv3685de5JF603TpgkfqienSxiP1NdOlt3iknpgubTxSm+nSxiP1xHTpgkdqM116k0dqM136Go/UZrp0xSP1NdOljUfqTdOlCx6pK9OljUfqwnTpTR6pzXTpikdqM136LzMBAADglAkAAACnTAAAADhlAgAAwCkTAAAATpkAAABwygQAAIBTJgAAAJz69ecvHfFIXZguXfFIXZguvckjtZkuXfFIbaZLFzxSXzNduuKR2kyXLniknpgubTxSXzNdepNH6sJ06U0eqc10aeORujJd2nikNtOln8gjtZkuPeGR2kyXNh6pzXTpTR6pK9OljUdqM126YAIAAMApEwAAAE6ZAAAAcMoEAACAUyYAAACcMgEAAOCUCQAAAKdMAAAAOPXrz1/6GI/UE9Olt3ik/mXTpQseqSvTpQseqc106Ws8Ul8zXXqTR+rCdOlNHqkL06Wv8Ui9abq08Ug9MV264JG6MF264pHaTJc2Hqknpksbj9RmurTxSD0xXfoSEwAAAE6ZAAAAcMoEAACAUyYAAACcMgEAAOCUCQAAAKdMAAAAOGUCAADAqd865JHaTJfe5JHaTJc206UnPFIXpktv8khtpktv8khtpktf45HaTJc206WNR+rKdOknmi5tPFJvmi5tPFJXPFJfM13aeKQuTJee8EhtpksXpksbj9QT06XNdOlfNV264pHaTJcumAAAAHDKBAAAgFMmAAAAnDIBAADglAkAAACnTAAAADhlAgAAwCkTAAAATv3685c+xiOF3XTpikdqM13aeKSuTJe+xiN1Ybp0wSP1xHRp45G6MF264pG6MF264pH6munSxiO1mS5tPFJPTJfe4pF6Yrq08Uhtpktf45G6MF16wiP1lunST2QCAADAKRMAAABOmQAAAHDKBAAAgFMmAAAAnDIBAADglAkAAACnTAAAADhlAgAAwKnfOuSRetN0aeOR2kyXvsYj9a+aLv3XeaQuTJee8Ehtpksbj9TGI/Wm6dLGI/XEdOnCdGnjkdpMl57wSG2mS2/ySG2mSxuP1BWP1Fs8UlemS5vp0pumSxuP1Js8UhemSxdMAAAAOGUCAADAKRMAAABOmQAAAHDKBAAAgFMmAAAAnDIBAADglAkAAACnfv35S0c8Ul8zXbrgkboyXbrgkdpMl654pDbTpY1H6sp06Ws8Upvp0td4pDbTpY1H6qeaLm08Uv+q6dLGI/Wm6dKbPFKb6dIFj9QT06WNR+pfNV36iUwAAAA4ZQIAAMApEwAAAE6ZAAAAcMoEAACAUyYAAACcMgEAAOCUCQAAAKd+/flLeJVH6i3TpTd5pK5Mly54pDbTpSc8Upvp0sYj9abp0ls8Uk9Ml97ikXrTdOmCR+rKdOlNHqnNdOlNHqnNdOmCR2ozXXrCI3VhuvQmj9Sbpksbj9RmunTBBAAAgFMmAAAAnDIBAADglAkAAACnTAAAADhlAgAAwCkTAAAATpkAAABw6rcOeaT+66ZLF6ZLG4/UxiP1xHTpLdOlN02XNh6pJ6ZLG4/UZrq08Uhd8Uhtpktf45HaTJfeNF3aeKQuTJeueKQuTJeueKQ206WNR+pNHqk3TZc2HqkLHqknpksXpksbj9SV6dJbTAAAADhlAgAAwCkTAAAATpkAAABwygQAAIBTJgAAAJwyAQAA4JQJAAAAp0wAAAA49Vsvmy79RB6pK9OljUfqTR4p7DxS/yqP1NdMl/5V06WvmS5tPFJPTJc2Hqmv8UhdmC79RNOlr5kuPeGRujBdumACAADAKRMAAABOmQAAAHDKBAAAgFMmAAAAnDIBAADglAkAAACnTAAAADj1Wx/kkXrTdOlNHqnNdGnjkdpMl654pC54pJ6YLm08Um+aLn3JdOmKR2ozXdp4pJ7wSP1EHqn/sunSlenS10yX/lUeKbzHBAAAgFMmAAAAnDIBAADglAkAAACnTAAAADhlAgAAwCkTAAAATpkAAABw6rfwuunShenSxiN1Zbq08Uhtpktvmi5tPFJPeKS+xCP1xHTpgkfqa6ZLG4/UE9OljUfqgkfqynTpLR6pK9OljUdqM1264pH6V02XrnikNtOljUfqynRp45F6iwkAAACnTAAAADhlAgAAwCkTAAAATpkAAABwygQAAIBTJgAAAJwyAQAA4NRv4ZM8Upvp0ma6dMUjtZkuXfFIvWW69IRHajNduuCRuuKR+prp0sYjtfFIbaZLV6ZLFzxSb5ou/dd5pDbTpbd4pK5Ml940Xdp4pN7kkdpMl95iAgAAwCkTAAAATpkAAABwygQAAIBTJgAAAJwyAQAA4JQJAAAAp0wAAAA4ZQIAAMCpX3/+0hGP1Ga69BN5pJ6YLn2JR+qnmi5d8EhtpktPeKTeMl16k0fqwnTpazxST0yXLnikNtOljUfqTdOlKx6pzXTpTR6pC9OljUdqM1264pHaTJc2Hqknpktf45G6MF26YAIAAMApEwAAAE6ZAAAAcMoEAACAUyYAAACcMgEAAOCUCQAAAKdMAAAAOPVbL/NI/dd5pC5MlzbTpSc8Upvp0sYj9SaP1Ga6tPFIXZkubTxSFzxST0yXNtOlCx6pJ6ZLG4/UZrr0E3mkvsYjtZkuXfFIbaZLV6ZLG4/UhenSxiP1xHRpM13aeKTe5JHaTJeuTJc2Hqm3mAAAAHDKBAAAgFMmAAAAnDIBAADglAkAAACnTAAAADhlAgAAwCkTAAAATv3685cAAABwxgQAAIBTJgAAAJwyAQAA4JQJAAAAp0wAAAA4ZQIAAMApEwAAAE6ZAAAAcMoEAACAUyYAAACcMgEAAOCUCQAAAKdMAAAAOGUCAADAKRMAAABOmQAAAHDKBAAAgFP/A4tVuJlMqtpSAAAAAElFTkSuQmCC" x="40" y="40" width="520" height="520"/>
+    </g>
+
+    <!-- Scan Guide Banner Below QR -->
+    <g transform="translate(60, 1220)">
+      <text x="400" y="0" font-family="'Pretendard', sans-serif" font-size="26" font-weight="800" fill="#0f172a" text-anchor="middle">
+        스마트폰 기본 카메라로 비추면 바로 연락처가 저장됩니다
+      </text>
+      <text x="400" y="38" font-family="'Pretendard', sans-serif" font-size="20" font-weight="600" fill="#2563eb" text-anchor="middle">
+        아이폰 · 갤럭시 기본 카메라 앱 100% 호환 (앱 설치 불필요)
+      </text>
+    </g>
+
+    <!-- Bottom Contact Details Strip -->
+    <g transform="translate(60, 1310)">
+      <line x1="0" y1="0" x2="800" y2="0" stroke="#e2e8f0" stroke-width="2"/>
+      
+      <!-- Phone -->
+      <text x="40" y="50" font-family="'Pretendard', sans-serif" font-size="22" font-weight="700" fill="#64748b">휴대전화</text>
+      <text x="140" y="50" font-family="'Pretendard', sans-serif" font-size="24" font-weight="800" fill="#0f172a">010-7672-6707</text>
+
+      <!-- Office Tel -->
+      <text x="460" y="50" font-family="'Pretendard', sans-serif" font-size="22" font-weight="700" fill="#64748b">사무실</text>
+      <text x="540" y="50" font-family="'Pretendard', sans-serif" font-size="24" font-weight="800" fill="#0f172a">044-850-1078</text>
+
+      <!-- Email -->
+      <text x="40" y="100" font-family="'Pretendard', sans-serif" font-size="22" font-weight="700" fill="#64748b">이메일</text>
+      <text x="140" y="100" font-family="'Pretendard', sans-serif" font-size="24" font-weight="800" fill="#0f172a">cej6707@tirebank.com</text>
+
+      <!-- Web -->
+      <text x="460" y="100" font-family="'Pretendard', sans-serif" font-size="22" font-weight="700" fill="#64748b">웹사이트</text>
+      <text x="540" y="100" font-family="'Pretendard', sans-serif" font-size="24" font-weight="800" fill="#2563eb">tirebank.com</text>
+
+      <!-- Address -->
+      <text x="40" y="150" font-family="'Pretendard', sans-serif" font-size="20" font-weight="700" fill="#64748b">본사</text>
+      <text x="140" y="150" font-family="'Pretendard', sans-serif" font-size="20" font-weight="700" fill="#475569">세종특별자치시 한누리대로 350 (뱅크빌딩) 8층</text>
+    </g>
+  </g>
+
+  <!-- Bottom Watermark -->
+  <text x="540" y="1800" font-family="'Pretendard', sans-serif" font-size="20" font-weight="600" fill="#94a3b8" text-anchor="middle">
+    CardLink AI Smart Business Card · 대한민국 1등 타이어뱅크
+  </text>
+</svg>

@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CardLink - 스마트 디지털 명함 & 근거리 공유</title>
+  <meta name="description" content="QR 코드 스캔 및 근거리 공유(Quick Share/AirDrop/NFC)로 언제 어디서나 바로 전달하는 인터랙티브 디지털 스마트 명함">
+  <meta name="theme-color" content="#0b0f19">
+
+  <!-- Open Graph for rich previews when shared via KakaoTalk/Messages -->
+  <meta property="og:title" content="스마트 디지털 명함 | CardLink">
+  <meta property="og:description" content="QR 코드와 근거리 공유로 전달받은 인터랙티브 스마트 명함입니다. 연락처를 원클릭으로 주소록에 추가해보세요.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <!-- Offline-capable QR Code Generator Engine -->
+  <script src="lib/qrcode.js"></script>
+  <!-- Client-side OCR Engine (Tesseract.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script>
+    if (typeof Tesseract === 'undefined') {
+      document.write('<script src="lib/tesseract.min.js"><\/script>');
+    }
+  </script>
+</head>
+<body class="theme-midnight">
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- Global Navigation Header -->
+  <header class="app-header">
+    <div class="header-inner container">
+      <a href="#" class="brand-logo" id="brand-logo-btn">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="5" width="20" height="14" rx="3"></rect>
+            <path d="M2 10h20"></path>
+            <circle cx="6" cy="15" r="1" fill="currentColor"></circle>
+          </svg>
+        </div>
+        <span class="logo-text">Card<span>Link</span></span>
+        <span class="badge-smart">스마트 명함</span>
+      </a>
+
+      <!-- Header Action Controls -->
+      <div class="header-actions">
+        <!-- View Mode Switch (Mobile tabs) -->
+        <div class="mode-tabs" id="mobile-mode-tabs">
+          <button type="button" class="tab-btn active" id="tab-edit-btn" data-target="editor">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            <span>명함 편집</span>
+          </button>
+          <button type="button" class="tab-btn" id="tab-preview-btn" data-target="preview">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"></rect><path d="M12 18h.01"></path></svg>
+            <span>미리보기</span>
+          </button>
+        </div>
+
+        <button type="button" class="btn btn-scan-accent" id="scan-card-header-btn" title="기존 명함 사진 찍어서 QR 코드 만들기">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+            <circle cx="12" cy="13" r="4"></circle>
+          </svg>
+          <span>사진으로 QR 생성</span>
+          <span class="badge-pill-ai">AI</span>
+        </button>
+
+        <button type="button" class="btn btn-secondary btn-icon" id="quick-qr-header-btn" title="QR 코드 바로 띄우기">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+            <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+            <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+            <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+          </svg>
+          <span class="hide-mobile">QR 제시</span>
+        </button>
+
+        <button type="button" class="btn btn-primary" id="share-header-btn" title="근거리 공유 및 링크">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+          <span>명함 공유</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="app-main container">
+    <!-- Notice Banner for Receiver Mode (Shown only when viewing a shared link) -->
+    <div id="receiver-banner" class="receiver-banner hidden">
+      <div class="receiver-banner-content">
+        <span class="pulse-indicator"></span>
+        <span id="receiver-title">공유받은 스마트 디지털 명함입니다.</span>
+      </div>
+      <div class="receiver-banner-actions">
+        <button type="button" class="btn-sm btn-ghost" id="create-my-card-btn">
+          ✨ 나도 명함 만들기
+        </button>
+      </div>
+    </div>
+
+    <div class="workspace-grid" id="workspace-grid">
+      
+      <!-- LEFT COLUMN: Card Editor Studio -->
+      <section class="editor-section" id="editor-section">
+        <div class="panel-card">
+          <div class="panel-header">
+            <div>
+              <h1 class="panel-title">명함 제작 스튜디오</h1>
+              <p class="panel-subtitle">정보를 입력하거나 기존 명함 사진을 찍어 올리면 스마트 명함과 QR이 완성됩니다.</p>
+            </div>
+            <div class="header-tools">
+              <button type="button" class="btn-sm btn-ghost" id="load-sample-btn" title="예시 데이터 채우기">샘플 불러오기</button>
+              <button type="button" class="btn-sm btn-ghost danger" id="reset-card-btn" title="새로 작성">초기화</button>
+            </div>
+          </div>
+
+          <!-- OCR Quick Business Card Scanner Hero Banner -->
+          <div class="ocr-hero-card" id="ocr-hero-banner">
+            <div class="ocr-hero-glow"></div>
+            <div class="ocr-hero-body">
+              <div class="ocr-hero-badge-wrap">
+                <span class="ocr-hero-badge">✨ AI 스마트 명함 스캐너</span>
+                <span class="ocr-hero-subbadge">종이 명함 ➔ QR 자동 변환</span>
+              </div>
+              <div class="ocr-hero-content-row">
+                <div class="ocr-hero-icon-box">
+                  <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                  </svg>
+                </div>
+                <div class="ocr-hero-desc">
+                  <h4>기존 종이 명함 사진으로 3초 만에 QR 만들기</h4>
+                  <p>스마트폰으로 명함을 찰칵 찍거나 앨범 사진을 올리면 글자를 자동 인식하여 디지털 명함과 QR 코드를 즉각 생성합니다.</p>
+                </div>
+              </div>
+              <div class="ocr-hero-action-row">
+                <button type="button" class="btn btn-primary btn-sm btn-ocr-start" id="btn-hero-scan">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                  </svg>
+                  <span>명함 사진 찍기 / 올리기</span>
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" id="btn-hero-demo-test">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                  <span>샘플 명함 테스트</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <form id="card-form" class="card-form" onsubmit="event.preventDefault();">
+            
+            <!-- Accordion / Section: Theme & Visual Style -->
+            <div class="form-group-block">
+              <div class="block-title">
+                <span class="block-num">01</span>
+                <h3>명함 테마 & 비주얼</h3>
+              </div>
+              <div class="theme-picker-grid">
+                <label class="theme-option">
+                  <input type="radio" name="cardTheme" value="minimal" checked>
+                  <span class="theme-preview theme-swatch-minimal">
+                    <span class="swatch-accent"></span>
+                    <span class="theme-label">화이트 (Pure White)</span>
+                  </span>
+                </label>
+
+                <label class="theme-option">
+                  <input type="radio" name="cardTheme" value="cyber">
+                  <span class="theme-preview theme-swatch-cyber">
+                    <span class="swatch-accent"></span>
+                    <span class="theme-label">Cyber Blue</span>
+                  </span>
+                </label>
+
+                <label class="theme-option">
+                  <input type="radio" name="cardTheme" value="midnight">
+                  <span class="theme-preview theme-swatch-midnight">
+                    <span class="swatch-accent"></span>
+                    <span class="theme-label">Midnight</span>
+                  </span>
+                </label>
+
+                <label class="theme-option">
+                  <input type="radio" name="cardTheme" value="emerald">
+                  <span class="theme-preview theme-swatch-emerald">
+                    <span class="swatch-accent"></span>
+                    <span class="theme-label">Emerald</span>
+                  </span>
+                </label>
+
+                <label class="theme-option">
+                  <input type="radio" name="cardTheme" value="sunset">
+                  <span class="theme-preview theme-swatch-sunset">
+                    <span class="swatch-accent"></span>
+                    <span class="theme-label">Sunset Coral</span>
+                  </span>
+                </label>
+
+                <label class="theme-option">
+                  <input type="radio" name="cardTheme" value="royal">
+                  <span class="theme-preview theme-swatch-royal">
+                    <span class="swatch-accent"></span>
+                    <span class="theme-label">Royal Gold</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Profile Image & Avatar -->
+            <div class="form-group-block">
+              <div class="block-title">
+                <span class="block-num">02</span>
+                <h3>프로필 사진 / 로고</h3>
+              </div>
+              <div class="avatar-uploader-row">
+                <div class="avatar-preview-box" id="avatar-preview-container">
+                  <img id="form-avatar-img" src="" alt="프로필 미리보기" class="hidden">
+                  <div id="form-avatar-placeholder" class="avatar-placeholder">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                  </div>
+                </div>
+                <div class="avatar-control-inputs">
+                  <div class="btn-file-wrapper">
+                    <label for="avatar-file-input" class="btn btn-secondary btn-sm">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                      사진 업로드
+                    </label>
+                    <input type="file" id="avatar-file-input" accept="image/*" class="file-hidden">
+                    <button type="button" class="btn btn-ghost btn-sm danger hidden" id="remove-avatar-btn">사진 삭제</button>
+                  </div>
+                  <span class="field-hint">스마트폰이나 PC에 있는 사진/회사 로고를 등록할 수 있습니다. (자동 최적화)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Basic Identification -->
+            <div class="form-group-block">
+              <div class="block-title">
+                <span class="block-num">03</span>
+                <h3>기본 인적사항</h3>
+              </div>
+              <div class="form-grid-2">
+                <div class="form-field">
+                  <label for="input-name">성명 / 이름 <span class="required">*</span></label>
+                  <input type="text" id="input-name" placeholder="예: 홍길동" required>
+                </div>
+                <div class="form-field">
+                  <label for="input-eng-name">영문 이름 / 닉네임</label>
+                  <input type="text" id="input-eng-name" placeholder="예: Gildong Hong / Dave">
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-field">
+                  <label for="input-company">회사명 / 소속 <span class="required">*</span></label>
+                  <input type="text" id="input-company" placeholder="예: 테크 솔루션즈">
+                </div>
+                <div class="form-field">
+                  <label for="input-title">직책 / 직함 <span class="required">*</span></label>
+                  <input type="text" id="input-title" placeholder="예: 대표이사 / 프로덕트 리드">
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="input-department">부서 / 팀 / 전문분야</label>
+                <input type="text" id="input-department" placeholder="예: 신사업개발팀 / 풀스택 엔지니어링">
+              </div>
+
+              <div class="form-field">
+                <label for="input-bio">한 줄 소개 / 프로필 비전</label>
+                <textarea id="input-bio" rows="2" placeholder="예: 기술과 디자인으로 비즈니스를 혁신합니다. 네트워킹과 커피챗 환영합니다."></textarea>
+              </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="form-group-block">
+              <div class="block-title">
+                <span class="block-num">04</span>
+                <h3>연락처 정보</h3>
+              </div>
+              <div class="form-grid-2">
+                <div class="form-field">
+                  <label for="input-phone">휴대전화번호 <span class="required">*</span></label>
+                  <input type="tel" id="input-phone" placeholder="010-0000-0000">
+                </div>
+                <div class="form-field">
+                  <label for="input-tel">회사/사무실 유선전화</label>
+                  <input type="tel" id="input-tel" placeholder="02-000-0000">
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-field">
+                  <label for="input-email">이메일 주소 <span class="required">*</span></label>
+                  <input type="email" id="input-email" placeholder="name@company.com">
+                </div>
+                <div class="form-field">
+                  <label for="input-website">웹사이트 / 포트폴리오 URL</label>
+                  <input type="url" id="input-website" placeholder="https://mywebsite.com">
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="input-address">오피스 / 회사 주소</label>
+                <input type="text" id="input-address" placeholder="예: 서울특별시 강남구 테헤란로 123">
+              </div>
+            </div>
+
+            <!-- Social Links & Channels -->
+            <div class="form-group-block">
+              <div class="block-title">
+                <span class="block-num">05</span>
+                <h3>소셜 미디어 & 링크 채널</h3>
+              </div>
+              <div id="socials-container" class="socials-list">
+                <!-- Dynamically populated or default rows -->
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" id="add-social-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                SNS 채널 추가
+              </button>
+            </div>
+
+            <!-- Bottom Floating Save Notification -->
+            <div class="editor-footer">
+              <div class="autosave-status" id="autosave-status">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>브라우저에 자동 저장됨</span>
+              </div>
+              <div class="editor-footer-actions">
+                <button type="button" class="btn btn-secondary" id="preview-open-btn">
+                  <span>미리보기</span>
+                </button>
+                <button type="button" class="btn btn-primary" id="open-share-modal-btn">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                  <span>QR 및 근거리 공유</span>
+                </button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN: Interactive Smartphone Live Preview -->
+      <section class="preview-section" id="preview-section">
+        <div class="sticky-preview-container">
+          
+          <div class="preview-controls-bar">
+            <span class="preview-title">실시간 스마트폰 미리보기</span>
+            <div class="preview-actions">
+              <button type="button" class="btn-sm btn-secondary" id="preview-scan-btn" title="명함 사진 찍어서 QR 만들기">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                <span>사진 스캔</span>
+              </button>
+              <button type="button" class="btn-sm btn-ghost" id="flip-card-btn" title="카드 앞/뒤 전환">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+                <span>카드 뒤집기</span>
+              </button>
+              <button type="button" class="btn-sm btn-primary" id="quick-qr-btn" title="QR 코드 확대">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                <span>QR 확대</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Smartphone Shell Mockup -->
+          <div class="phone-mockup" id="phone-frame">
+            <!-- Dynamic Speaker & Camera Notch -->
+            <div class="phone-notch">
+              <div class="notch-speaker"></div>
+              <div class="notch-camera"></div>
+            </div>
+
+            <!-- Screen Viewport -->
+            <div class="phone-screen" id="phone-screen">
+              
+              <!-- Flippable Card Container -->
+              <div class="card-3d-wrapper" id="card-3d-wrapper">
+                
+                <!-- CARD FRONT: Luxury Interactive Digital Business Card -->
+                <div class="digital-card card-front" id="card-render-front">
+                  <div class="card-surface-glass">
+                    <!-- Chip & Contactless Hologram -->
+                    <div class="card-top-decor">
+                      <div class="smart-chip">
+                        <div class="chip-line horizontal"></div>
+                        <div class="chip-line vertical"></div>
+                      </div>
+                      <div class="nfc-signal-icon" title="근거리 NFC 호환">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M5.5 8.5a6.5 6.5 0 0 1 0 7"></path>
+                          <path d="M8.5 6.5a10 10 0 0 1 0 11"></path>
+                          <path d="M11.5 4.5a13.5 13.5 0 0 1 0 15"></path>
+                        </svg>
+                      </div>
+                    </div>
+
+                    <!-- Profile Section -->
+                    <div class="card-profile-header">
+                      <div class="avatar-ring" id="card-avatar-ring">
+                        <img id="card-avatar-img" src="" alt="프로필 사진" class="hidden">
+                        <div id="card-avatar-fallback" class="avatar-fallback">홍</div>
+                      </div>
+                      <div class="card-headings">
+                        <div class="name-row">
+                          <h2 id="card-name" class="card-name">홍길동</h2>
+                          <span id="card-eng-name" class="card-eng-name">Gildong Hong</span>
+                        </div>
+                        <p id="card-title-dept" class="card-title-dept">대표이사 / 프로덕트 리드</p>
+                        <p id="card-company" class="card-company">테크 이노베이션즈</p>
+                      </div>
+                    </div>
+
+                    <!-- Bio / Statement -->
+                    <div class="card-bio-box" id="card-bio-box">
+                      <p id="card-bio" class="card-bio">기술로 세상을 더 가치있고 편리하게 연결합니다. 함께 성장할 네트워킹을 환영합니다.</p>
+                    </div>
+
+                    <!-- Quick Contact Buttons -->
+                    <div class="card-quick-actions">
+                      <a href="#" id="action-call" class="quick-btn" title="전화 걸기">
+                        <div class="quick-btn-icon">
+                          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        </div>
+                        <span>전화</span>
+                      </a>
+                      <a href="#" id="action-email" class="quick-btn" title="이메일 작성">
+                        <div class="quick-btn-icon">
+                          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        </div>
+                        <span>이메일</span>
+                      </a>
+                      <a href="#" id="action-sms" class="quick-btn" title="문자 보내기">
+                        <div class="quick-btn-icon">
+                          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        </div>
+                        <span>문자</span>
+                      </a>
+                      <a href="#" id="action-website" class="quick-btn" target="_blank" rel="noopener" title="웹사이트 방문">
+                        <div class="quick-btn-icon">
+                          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                        </div>
+                        <span>웹사이트</span>
+                      </a>
+                    </div>
+
+                    <!-- Contact Details Table / List -->
+                    <div class="card-details-list">
+                      <div class="detail-row" id="row-phone">
+                        <span class="detail-icon">
+                          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        </span>
+                        <span id="detail-phone-val" class="detail-val">010-1234-5678</span>
+                      </div>
+
+                      <div class="detail-row" id="row-email">
+                        <span class="detail-icon">
+                          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        </span>
+                        <span id="detail-email-val" class="detail-val">gildong@example.com</span>
+                      </div>
+
+                      <div class="detail-row" id="row-address">
+                        <span class="detail-icon">
+                          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        </span>
+                        <span id="detail-address-val" class="detail-val">서울특별시 강남구 테헤란로 123</span>
+                      </div>
+                    </div>
+
+                    <!-- Social Badges Grid -->
+                    <div class="card-socials-wrap" id="card-socials-wrap">
+                      <!-- Dynamic badges -->
+                    </div>
+
+                    <!-- Primary Hero Action: Add Contact to Phone Address Book (.vcf) -->
+                    <div class="card-bottom-cta">
+                      <button type="button" class="btn btn-save-vcard" id="save-vcard-btn">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                          <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                          <polyline points="7 3 7 8 15 8"></polyline>
+                        </svg>
+                        <span>연락처에 저장하기 (vCard)</span>
+                      </button>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- CARD BACK: Direct QR Code Scan & Proximity Sharing Face -->
+                <div class="digital-card card-back" id="card-render-back">
+                  <div class="card-surface-glass back-content">
+                    <div class="back-header">
+                      <span class="smart-badge-outline">스마트 명함 QR</span>
+                      <p class="back-instruction">스마트폰 카메라로 비추면 바로 열립니다.</p>
+                    </div>
+
+                    <!-- Rendered QR on Card -->
+                    <div class="back-qr-box" id="card-back-qr-container">
+                      <!-- Rendered SVG/Canvas goes here -->
+                    </div>
+
+                    <div class="back-card-profile-summary">
+                      <strong id="back-name">홍길동</strong>
+                      <span id="back-company-title">테크 이노베이션즈 · 대표이사</span>
+                    </div>
+
+                    <div class="back-actions">
+                      <button type="button" class="btn-sm btn-secondary" id="back-to-front-btn">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"></path></svg>
+                        <span>앞면 보기</span>
+                      </button>
+                      <button type="button" class="btn-sm btn-primary" id="back-share-btn">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                        <span>근거리 공유</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Home indicator bar -->
+            <div class="phone-home-indicator"></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ============================================== -->
+  <!-- MODAL 1: Fullscreen Presentation QR Modal      -->
+  <!-- ============================================== -->
+  <dialog id="qr-modal" class="modal-dialog">
+    <div class="modal-wrapper">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-title-wrap">
+            <h3 class="modal-title">명함 QR 코드 제시</h3>
+            <p class="modal-subtitle">상대방에게 카메라로 비추게 하세요.</p>
+          </div>
+          <button type="button" class="btn-close-modal" id="close-qr-modal-btn" aria-label="닫기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+
+        <div class="modal-body text-center">
+          <!-- QR Type Switcher -->
+          <div class="qr-mode-switch">
+            <button type="button" class="qr-mode-btn active" id="qr-mode-web-btn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              <span>웹 디지털 명함 (권장)</span>
+            </button>
+            <button type="button" class="qr-mode-btn" id="qr-mode-vcard-btn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              <span>오프라인 연락처 직통</span>
+            </button>
+          </div>
+
+          <!-- Large High-contrast QR Container -->
+          <div class="modal-qr-frame">
+            <div id="modal-qr-render" class="modal-qr-box"></div>
+          </div>
+
+          <!-- Localhost / Wi-Fi Guidance Box for Smartphone Camera Scan -->
+          <div id="qr-host-guide-box" class="qr-host-guide-box">
+            <div class="host-guide-header">
+              <span class="guide-tag">스마트폰 스캔 연결 설정</span>
+            </div>
+            <p class="host-guide-text" id="host-guide-text">
+              스마트폰 카메라로 스캔하려면 같은 Wi-Fi IP(<strong>172.30.1.33:4173</strong>) 또는 정식 배포 웹 주소가 필요합니다.
+            </p>
+            <div class="host-quick-pills">
+              <button type="button" class="pill-btn active" id="pill-wifi-ip-btn">
+                📶 Wi-Fi IP (172.30.1.33:4173)
+              </button>
+              <button type="button" class="pill-btn" id="pill-localhost-btn">
+                💻 PC 로컬 (localhost)
+              </button>
+              <button type="button" class="pill-btn" id="pill-custom-url-btn">
+                🌐 배포 URL 직접 입력
+              </button>
+            </div>
+            <div id="custom-url-row" class="custom-url-row hidden">
+              <input type="url" id="custom-base-url-input" placeholder="https://내이름.vercel.app 또는 배포주소">
+              <button type="button" class="btn btn-sm btn-primary" id="save-custom-url-btn">QR 반영</button>
+            </div>
+          </div>
+
+          <p class="qr-mode-hint" id="qr-mode-hint">
+            스캔 시 감각적인 모바일 웹 명함이 뜨며, 원클릭으로 주소록 저장이 가능합니다.
+          </p>
+
+          <div class="qr-action-buttons">
+            <button type="button" class="btn btn-secondary btn-sm" id="download-qr-btn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              QR 이미지 저장
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" id="copy-card-link-btn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              명함 링크 복사
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ============================================== -->
+  <!-- MODAL 2: Proximity Sharing & NFC Guide Modal   -->
+  <!-- ============================================== -->
+  <dialog id="share-modal" class="modal-dialog">
+    <div class="modal-wrapper">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-title-wrap">
+            <h3 class="modal-title">명함 근거리 & 다이렉트 공유</h3>
+            <p class="modal-subtitle">원하는 방식으로 상대방에게 명함을 즉시 보냅니다.</p>
+          </div>
+          <button type="button" class="btn-close-modal" id="close-share-modal-btn" aria-label="닫기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="share-options-list">
+            
+            <!-- Option 1: Native Share (Quick Share / AirDrop) -->
+            <button type="button" class="share-channel-card" id="native-share-btn">
+              <div class="channel-icon-circle blue">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                  <polyline points="16 6 12 2 8 6"></polyline>
+                  <line x1="12" y1="2" x2="12" y2="15"></line>
+                </svg>
+              </div>
+              <div class="channel-info">
+                <div class="channel-title-row">
+                  <strong>모바일 근거리 공유</strong>
+                  <span class="badge-tag">Quick Share · AirDrop</span>
+                </div>
+                <p>스마트폰 기본 공유창을 띄워 주변 기기나 카카오톡으로 바로 보냅니다.</p>
+              </div>
+              <div class="channel-arrow">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </div>
+            </button>
+
+            <!-- Option 2: NFC Proximity Write/Tap -->
+            <button type="button" class="share-channel-card" id="nfc-share-btn">
+              <div class="channel-icon-circle emerald">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5.5 8.5a6.5 6.5 0 0 1 0 7"></path>
+                  <path d="M8.5 6.5a10 10 0 0 1 0 11"></path>
+                  <path d="M11.5 4.5a13.5 13.5 0 0 1 0 15"></path>
+                </svg>
+              </div>
+              <div class="channel-info">
+                <div class="channel-title-row">
+                  <strong>NFC 태그 접촉 공유</strong>
+                  <span class="badge-tag nfc">스마트폰 탭</span>
+                </div>
+                <p>스마트폰을 실물 NFC 카드나 상대방 폰에 갖다 대어 명함을 전달합니다.</p>
+              </div>
+              <div class="channel-arrow">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </div>
+            </button>
+
+            <!-- Option 3: Instant URL Copy -->
+            <button type="button" class="share-channel-card" id="url-copy-channel-btn">
+              <div class="channel-icon-circle purple">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+              </div>
+              <div class="channel-info">
+                <div class="channel-title-row">
+                  <strong>명함 웹 링크 복사</strong>
+                </div>
+                <p>문자 메시지, 이메일, 메신저 대화방에 붙여넣을 수 있는 고유 링크입니다.</p>
+              </div>
+              <div class="channel-arrow">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </div>
+            </button>
+
+            <!-- Option 4: Direct vCard File Download -->
+            <button type="button" class="share-channel-card" id="vcard-download-channel-btn">
+              <div class="channel-icon-circle amber">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                  <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                  <polyline points="7 3 7 8 15 8"></polyline>
+                </svg>
+              </div>
+              <div class="channel-info">
+                <div class="channel-title-row">
+                  <strong>연락처 파일 (.vcf) 내려받기</strong>
+                </div>
+                <p>아이폰 및 갤럭시 주소록에 한 번에 등록 가능한 표준 연락처 파일입니다.</p>
+              </div>
+              <div class="channel-arrow">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </div>
+            </button>
+
+          </div>
+
+          <!-- NFC Live Write Box (Shown when user clicks NFC) -->
+          <div id="nfc-write-status" class="nfc-status-box hidden">
+            <div class="nfc-spinner"></div>
+            <p><strong>NFC 태그나 상대방 기기를 스마트폰 뒷면에 접촉해주세요...</strong></p>
+            <span class="nfc-subtext">실물 NFC 카드/스티커에 명함 주소가 즉시 기록됩니다.</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ============================================== -->
+  <!-- MODAL 3: Business Card Photo OCR & QR Converter -->
+  <!-- ============================================== -->
+  <dialog id="ocr-modal" class="modal-dialog modal-dialog-lg">
+    <div class="modal-wrapper">
+      <div class="modal-card ocr-modal-card">
+        <div class="modal-header">
+          <div class="modal-title-wrap">
+            <div class="modal-badge-row">
+              <span class="badge-ocr-ai">📷 실물 명함 AI 스캐너</span>
+              <span class="badge-ocr-auto">QR 코드 자동 생성</span>
+            </div>
+            <h3 class="modal-title">종이 명함 사진으로 스마트 명함 만들기</h3>
+            <p class="modal-subtitle">기존 명함 사진을 찍거나 올리면 정보가 자동 인식되어 즉시 QR 코드가 생성됩니다.</p>
+          </div>
+          <button type="button" class="btn-close-modal" id="close-ocr-modal-btn" aria-label="닫기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+
+        <div class="modal-body ocr-modal-body">
+          <!-- Step 1: Input Tabs & Options -->
+          <div class="ocr-step-tabs">
+            <button type="button" class="ocr-tab-btn active" id="ocr-tab-upload">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+              <span>사진 파일 올리기</span>
+            </button>
+            <button type="button" class="ocr-tab-btn" id="ocr-tab-camera">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+              <span>카메라로 촬영하기</span>
+            </button>
+            <button type="button" class="ocr-tab-btn" id="ocr-tab-demo">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              <span>샘플 명함으로 시험하기</span>
+            </button>
+          </div>
+
+          <!-- Section A: File Upload Zone -->
+          <div id="ocr-view-upload" class="ocr-section-view">
+            <div class="ocr-dropzone" id="ocr-dropzone">
+              <input type="file" id="ocr-file-input" accept="image/*" class="file-hidden">
+              <div class="dropzone-content">
+                <div class="dropzone-icon">
+                  <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.6">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                </div>
+                <h4>명함 사진을 여기에 끌어다 놓거나 클릭하세요</h4>
+                <p>스마트폰으로 찍은 사진, 캡처 이미지, JPG, PNG 파일 지원</p>
+                <div class="dropzone-buttons">
+                  <label for="ocr-file-input" class="btn btn-primary btn-sm">
+                    📁 사진 파일 선택
+                  </label>
+                  <label for="ocr-camera-mobile-input" class="btn btn-secondary btn-sm mobile-only-inline">
+                    📸 스마트폰 카메라 촬영
+                  </label>
+                  <input type="file" id="ocr-camera-mobile-input" accept="image/*" capture="environment" class="file-hidden">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section B: Live Camera Viewfinder (Webcam) -->
+          <div id="ocr-view-camera" class="ocr-section-view hidden">
+            <div class="camera-viewfinder-box">
+              <video id="ocr-camera-video" autoplay playsinline muted></video>
+              <div class="viewfinder-overlay">
+                <div class="card-guide-frame">
+                  <div class="guide-corner top-left"></div>
+                  <div class="guide-corner top-right"></div>
+                  <div class="guide-corner bottom-left"></div>
+                  <div class="guide-corner bottom-right"></div>
+                  <span class="guide-label">안내선에 맞춰 명함을 비춰주세요</span>
+                </div>
+              </div>
+              <div class="camera-controls">
+                <button type="button" class="btn btn-primary btn-capture" id="ocr-capture-btn">
+                  <span class="shutter-circle"></span>
+                  <span>사진 찰칵 촬영</span>
+                </button>
+                <button type="button" class="btn btn-ghost btn-sm" id="ocr-stop-camera-btn">카메라 끄기</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section C: Image Preview & Preprocessing Toolbar (Shown once image is chosen) -->
+          <div id="ocr-image-toolbar" class="ocr-image-toolbar hidden">
+            <div class="image-preview-card">
+              <div class="image-preview-container">
+                <img id="ocr-preview-img" src="" alt="명함 사진 미리보기">
+                <canvas id="ocr-canvas" class="hidden"></canvas>
+              </div>
+              <div class="image-tools-bar">
+                <button type="button" class="tool-btn" id="ocr-rotate-btn" title="사진 90도 회전">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+                  <span>90° 회전</span>
+                </button>
+                <button type="button" class="tool-btn" id="ocr-filter-btn" title="흑백/대비 증가로 인식률 높이기">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"></path></svg>
+                  <span id="filter-btn-label">대비 보정 ON</span>
+                </button>
+                <button type="button" class="tool-btn danger" id="ocr-reselect-btn" title="다른 사진 선택">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                  <span>다시 선택</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Analysis Trigger Bar -->
+            <div class="analysis-action-bar">
+              <div class="engine-selector-row">
+                <label class="engine-label">분석 모드:</label>
+                <div class="engine-radios">
+                  <label class="engine-opt active" id="opt-local-engine">
+                    <input type="radio" name="ocrEngine" value="local" checked>
+                    <span>⚡ 스마트 OCR (무료/즉시 분석)</span>
+                  </label>
+                  <label class="engine-opt" id="opt-gemini-engine">
+                    <input type="radio" name="ocrEngine" value="gemini">
+                    <span>✨ Google Gemini Vision AI</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Gemini API Key input row (shown if Gemini selected) -->
+              <div id="gemini-key-box" class="gemini-key-box hidden">
+                <input type="password" id="gemini-api-key-input" placeholder="Google Gemini API 키 입력 (AI Vision 분석용)">
+                <span class="field-hint">API 키는 브라우저 로컬에만 안전하게 보관됩니다.</span>
+              </div>
+
+              <button type="button" class="btn btn-primary btn-lg btn-analyze" id="ocr-start-analyze-btn">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                <span>명함 분석 & 정보 추출 시작</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Section D: Live Analysis Loading / Progress Bar -->
+          <div id="ocr-loading-view" class="ocr-loading-view hidden">
+            <div class="scanner-laser-box">
+              <div class="scanner-card-anim">
+                <div class="scanner-laser-line"></div>
+              </div>
+            </div>
+            <div class="loading-status-text" id="ocr-loading-status">명함 텍스트 및 레이아웃 분석 중...</div>
+            <div class="ocr-progress-bar-wrap">
+              <div class="ocr-progress-bar-fill" id="ocr-progress-bar-fill" style="width: 15%;"></div>
+            </div>
+            <span class="ocr-progress-pct" id="ocr-progress-pct">15%</span>
+          </div>
+
+          <!-- Section E: Result Review & Auto-Apply -->
+          <div id="ocr-result-view" class="ocr-result-view hidden">
+            <div class="result-header-notice">
+              <div class="success-badge">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>명함 정보가 자동으로 추출되었습니다!</span>
+              </div>
+              <p>필요한 경우 아래 내용을 확인 후 바로 수정할 수 있습니다.</p>
+            </div>
+
+            <div class="ocr-result-grid">
+              <div class="form-field">
+                <label>성명 / 이름 <span class="required">*</span></label>
+                <input type="text" id="ocr-field-name" placeholder="홍길동">
+              </div>
+              <div class="form-field">
+                <label>영문 이름</label>
+                <input type="text" id="ocr-field-engname" placeholder="Gildong Hong">
+              </div>
+              <div class="form-field">
+                <label>회사명 / 소속 <span class="required">*</span></label>
+                <input type="text" id="ocr-field-company" placeholder="(주)테크솔루션">
+              </div>
+              <div class="form-field">
+                <label>직책 / 직함 <span class="required">*</span></label>
+                <input type="text" id="ocr-field-title" placeholder="대표이사 / 프로덕트 리드">
+              </div>
+              <div class="form-field">
+                <label>부서 / 팀</label>
+                <input type="text" id="ocr-field-dept" placeholder="신사업기획팀">
+              </div>
+              <div class="form-field">
+                <label>휴대전화번호 <span class="required">*</span></label>
+                <input type="tel" id="ocr-field-phone" placeholder="010-1234-5678">
+              </div>
+              <div class="form-field">
+                <label>회사 유선전화</label>
+                <input type="tel" id="ocr-field-tel" placeholder="02-123-4567">
+              </div>
+              <div class="form-field">
+                <label>이메일 주소 <span class="required">*</span></label>
+                <input type="email" id="ocr-field-email" placeholder="hong@company.com">
+              </div>
+              <div class="form-field full-width">
+                <label>웹사이트 / 회사 URL</label>
+                <input type="url" id="ocr-field-website" placeholder="https://company.com">
+              </div>
+              <div class="form-field full-width">
+                <label>회사 오피스 주소</label>
+                <input type="text" id="ocr-field-address" placeholder="서울특별시 강남구 테헤란로 123">
+              </div>
+              <div class="form-field full-width">
+                <label>소개글 / 비전 문구</label>
+                <textarea id="ocr-field-bio" rows="2" placeholder="기술과 디자인으로 비즈니스를 혁신합니다."></textarea>
+              </div>
+            </div>
+
+            <!-- OCR Options Checkbox -->
+            <div class="ocr-options-row">
+              <label class="custom-checkbox">
+                <input type="checkbox" id="ocr-use-image-as-avatar" checked>
+                <span>📸 이 명함 사진을 디지털 명함 프로필/로고 이미지로 등록하기</span>
+              </label>
+            </div>
+
+            <!-- Raw OCR Text Toggle Details -->
+            <details class="ocr-raw-details">
+              <summary>인식된 원본 텍스트 전체 보기 (참고용)</summary>
+              <pre id="ocr-raw-text-box" class="ocr-raw-box"></pre>
+            </details>
+
+            <!-- Final Big Action Button -->
+            <div class="ocr-apply-actions">
+              <button type="button" class="btn btn-ghost" id="ocr-back-to-tools-btn">
+                <span>사진 다시 설정</span>
+              </button>
+              <button type="button" class="btn btn-primary btn-lg btn-create-qr" id="ocr-apply-and-qr-btn">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span>✨ 스마트 명함 완성 & QR 코드 생성하기</span>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Global Toast Notification -->
+  <div id="toast" class="toast-notification hidden" role="alert" aria-live="polite">
+    <div class="toast-icon" id="toast-icon"></div>
+    <span class="toast-message" id="toast-message">알림</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
